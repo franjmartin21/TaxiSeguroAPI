@@ -4,13 +4,15 @@ import java.util.Date;
 
 import org.springframework.data.annotation.Id;
 
-public class TaxiStart {
+public class TaxiJourney {
 	@Id
 	private String id;
 	
 	private String phoneNumber;
 	
 	private Date dateStart;
+	
+	private String plate;
 
 	public String getId() {
 		return id;
@@ -36,13 +38,13 @@ public class TaxiStart {
 		this.dateStart = dateStart;
 	}
 
-	@Override
-	public String toString() {
-		return "TaxiStart [id=" + id + ", phoneNumber=" + phoneNumber
-				+ ", dateStart=" + dateStart + "]";
+	public String getPlate() {
+		return plate;
 	}
-	
-	
+
+	public void setPlate(String plate) {
+		this.plate = plate;
+	}
 	
 	
 }

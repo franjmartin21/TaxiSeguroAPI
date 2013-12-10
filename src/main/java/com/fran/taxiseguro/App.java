@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 
 import com.fran.taxiseguro.config.SpringMongoConfig;
-import com.fran.taxiseguro.domain.TaxiStart;
+import com.fran.taxiseguro.domain.TaxiJourney;
  
 
 //import org.springframework.context.support.GenericXmlApplicationContext;
@@ -28,7 +28,7 @@ public class App {
              new AnnotationConfigApplicationContext(SpringMongoConfig.class);
 	MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
  
-	TaxiStart taxiStart = new TaxiStart();
+	TaxiJourney taxiStart = new TaxiJourney();
 	taxiStart.setId("1");
 	taxiStart.setDateStart(new Date());
 	taxiStart.setPhoneNumber("321654987");
@@ -44,15 +44,15 @@ public class App {
 	Query searchTaxiStartQuery = new Query(Criteria.where("phoneNumber").is("321654987"));
  
 	// find the saved user again.
-	TaxiStart savedTaxiStart = mongoOperation.findOne(searchTaxiStartQuery, TaxiStart.class);
+	TaxiJourney savedTaxiStart = mongoOperation.findOne(searchTaxiStartQuery, TaxiJourney.class);
 	System.out.println("2. find - savedTaxiStart : " + savedTaxiStart);
  
 	// update password
 	mongoOperation.updateFirst(searchTaxiStartQuery, 
-                         Update.update("date", new Date()),TaxiStart.class);
+                         Update.update("date", new Date()),TaxiJourney.class);
  
 	// find the updated user object
-	TaxiStart updatedTaxiStart = mongoOperation.findOne(searchTaxiStartQuery, TaxiStart.class);
+	TaxiJourney updatedTaxiStart = mongoOperation.findOne(searchTaxiStartQuery, TaxiJourney.class);
  
 	System.out.println("3. updatedTaxiStart : " + updatedTaxiStart);
  
@@ -60,7 +60,7 @@ public class App {
 	//mongoOperation.remove(searchTaxiStartQuery, TaxiStart.class);
  
 	// List, it should be empty now.
-	List<TaxiStart> listTaxiStart = mongoOperation.findAll(TaxiStart.class);
+	List<TaxiJourney> listTaxiStart = mongoOperation.findAll(TaxiJourney.class);
 	System.out.println("4. Number of taxiStart = " + listTaxiStart.size());
  
     }

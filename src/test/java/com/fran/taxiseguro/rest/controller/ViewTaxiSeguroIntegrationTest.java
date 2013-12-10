@@ -18,7 +18,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.fran.taxiseguro.domain.TaxiStart;
+import com.fran.taxiseguro.domain.TaxiJourney;
 import com.fran.taxiseguro.services.TaxiSeguroService;
 
 
@@ -41,10 +41,10 @@ public class ViewTaxiSeguroIntegrationTest {
 	@Test
 	public void thatTaxiStartHttpOk() throws Exception {
  
-	    when(taxiSeguroService.listTaxiStart()).thenReturn(new ArrayList<TaxiStart>());
+	    when(taxiSeguroService.listTaxiStart()).thenReturn(new ArrayList<TaxiJourney>());
 
 	    this.mockMvc.perform(
-	            get("/taxistart")
+	            get("/taxiseguro")
 	                    .accept(MediaType.APPLICATION_JSON))
 	            .andDo(print())
 	            .andExpect(status().isOk());

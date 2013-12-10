@@ -2,7 +2,6 @@ package com.fran.taxiseguro.rest.controller;
 
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -15,11 +14,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.fran.taxiseguro.domain.TaxiStart;
+import com.fran.taxiseguro.domain.TaxiJourney;
 import com.fran.taxiseguro.services.TaxiSeguroService;
 
 @Controller
-@RequestMapping("/taxistart")
+@RequestMapping("/taxiseguro")
 public class TaxiSeguroQueriesController {
 
     private static Logger LOG = LoggerFactory.getLogger(TaxiSeguroQueriesController.class);
@@ -30,8 +29,8 @@ public class TaxiSeguroQueriesController {
     @RequestMapping(method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public List<TaxiStart> getAllTaxiSeguro() {
-    	List<TaxiStart> taxiStartList = new ArrayList<TaxiStart>();
+    public List<TaxiJourney> getAllTaxiSeguro() {
+    	List<TaxiJourney> taxiStartList = new ArrayList<TaxiJourney>();
         taxiStartList = taxiSeguroService.listTaxiStart();
     	/*TaxiStart t = new TaxiStart();
     	t.setDateStart(new Date());
