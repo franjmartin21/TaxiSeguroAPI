@@ -31,7 +31,7 @@ public class App {
 	TaxiJourney taxiStart = new TaxiJourney();
 	taxiStart.setId("1");
 	taxiStart.setDateStart(new Date());
-	taxiStart.setPhoneNumber("321654987");
+	//taxiStart.setPhoneNumber("321654987");
 	
  
 	// save

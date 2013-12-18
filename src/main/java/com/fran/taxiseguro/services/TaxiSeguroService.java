@@ -25,7 +25,6 @@ public class TaxiSeguroService {
 		if (!mongoTemplate.collectionExists(TaxiJourney.class)) {
 			mongoTemplate.createCollection(TaxiJourney.class);
 		}       
-		taxiJourney.setId(UUID.randomUUID().toString());
 		mongoTemplate.insert(taxiJourney, COLLECTION_TAXIJOURNEYS);
 	}
 	

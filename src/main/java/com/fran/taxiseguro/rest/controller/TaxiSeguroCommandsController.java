@@ -7,13 +7,13 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.fran.taxiseguro.domain.Account;
+import com.fran.taxiseguro.domain.TaxiJourney;
 import com.fran.taxiseguro.services.TaxiSeguroService;
 
 @Controller
@@ -44,13 +44,26 @@ public class TaxiSeguroCommandsController {
 		return new ResponseEntity<Account>(account, headers, status);
 	}
 	
-	@RequestMapping(value="/{clientid}/startTaxi", method = RequestMethod.POST)
-    public ResponseEntity<Account> createOrder(@PathVariable String id, @RequestBody String plate) {
-		Account  account= new Account();
-		HttpHeaders headers = new HttpHeaders();	
-		
-		return new ResponseEntity<Account>(account, headers, HttpStatus.CREATED);
+	@RequestMapping(value="/taxijourney", method = RequestMethod.POST)
+    public ResponseEntity<TaxiJourney> createTaxiJourney(@RequestBody TaxiJourney taxiJourney, UriComponentsBuilder builder) {
+		HttpStatus status;
+		Account  account= taxiSeguroService.getAccount(taxiJourney.getAccountId());
+		HttpHeaders headers = new HttpHeaders();
+		if (account != null){
+			taxiJourney = new TaxiJourney(taxiJourney.getPlate(), taxiJourney.getAccountId());
+			//TODO: Before creating a new taxijourney check that there is no existent unfinished
+			taxiSeguroService.addTaxiJourney(taxiJourney);
+			headers.setLocation(
+	                builder.path("/taxiseguro/taxijourney/{id}")
+	                        .buildAndExpand(taxiJourney.getId().toString()).toUri());
+			status = HttpStatus.CREATED; 
+		}else{
+			status = HttpStatus.NOT_FOUND;
+		}
+		return new ResponseEntity<TaxiJourney>(taxiJourney, headers, status);
 	}
+	
+	//TODO: Method to add friends
 	
 	
 	
